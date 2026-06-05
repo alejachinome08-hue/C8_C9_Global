@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Hypothesis Testing Tool — Global Economics G11</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo-block">
+      <span class="logo-tag">G11 · Term 3 · 2025–26</span>
+      <h1>Hypothesis<br/><em>Testing</em> Tool</h1>
+      <p class="subtitle">Global Economics · Interactive Statistical Analysis</p>
+    </div>
+    <nav class="tab-nav">
+      <button class="tab-btn active" data-tab="c8">C8 — Manual Mode</button>
+      <button class="tab-btn" data-tab="c9">C9 — CSV Mode</button>
+    </nav>
+  </div>
+</header>
+
+<!-- ═══════════════════════ C8 PANEL ═══════════════════════ -->
+<main id="tab-c8" class="tab-panel active">
+  <div class="panel-grid">
+
+    <!-- LEFT: controls -->
+    <aside class="controls-col">
+      <section class="card">
+        <h2 class="card-title">Test Configuration</h2>
+
+        <div class="field-group">
+          <label>Test Mode</label>
+          <div class="toggle-group" id="modeToggle">
+            <button class="toggle-btn active" data-mode="proportion">Proportion</button>
+            <button class="toggle-btn" data-mode="mean">Mean</button>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label>Test Direction</label>
+          <div class="toggle-group" id="tailToggle">
+            <button class="toggle-btn active" data-tail="left">Left-tailed</button>
+            <button class="toggle-btn" data-tail="two">Two-tailed</button>
+            <button class="toggle-btn" data-tail="right">Right-tailed</button>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label>Significance Level α</label>
+          <div class="slider-row">
+            <input type="range" id="alphaSlider" min="0.01" max="0.10" step="0.01" value="0.05"/>
+            <input type="number" id="alphaBox" min="0.01" max="0.10" step="0.01" value="0.05"/>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROPORTION PARAMS -->
+      <section class="card" id="proportionParams">
+        <h2 class="card-title">Proportion Parameters</h2>
+
+        <div class="field-group">
+          <label>Benchmark Proportion p₀</label>
+          <div class="slider-row">
+            <input type="range" id="p0Slider" min="0.01" max="0.99" step="0.01" value="0.50"/>
+            <input type="number" id="p0Box" min="0.01" max="0.99" step="0.01" value="0.50"/>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label>Sample Proportion p̂</label>
+          <div class="slider-row">
+            <input type="range" id="phatSlider" min="0.01" max="0.99" step="0.01" value="0.55"/>
+            <input type="number" id="phatBox" min="0.01" max="0.99" step="0.01" value="0.55"/>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label>Sample Size n</label>
+          <div class="slider-row">
+            <input type="range" id="nPropSlider" min="10" max="1000" step="1" value="100"/>
+            <input type="number" id="nPropBox" min="10" max="1000" step="1" value="100"/>
+          </div>
+        </div>
+      </section>
+
+      <!-- MEAN PARAMS -->
+      <section class="card hidden" id="meanParams">
+        <h2 class="card-title">Mean Parameters</h2>
+
+        <div class="field-group">
+          <label>Benchmark Mean μ₀</label>
+          <div class="slider-row">
+            <input type="range" id="mu0Slider" min="0" max="200" step="0.5" value="100"/>
+            <input type="number" id="mu0Box" min="0" max="200" step="0.5" value="100"/>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label>Sample Mean x̄</label>
+          <div class="slider-row">
+            <input type="range" id="xbarSlider" min="0" max="200" step="0.5" value="105"/>
+            <input type="number" id="xbarBox" min="0" max="200" step="0.5" value="105"/>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label>Standard Deviation / SE σ</label>
+          <div class="slider-row">
+            <input type="range" id="sigmaSlider" min="1" max="50" step="0.5" value="15"/>
+            <input type="number" id="sigmaBox" min="1" max="50" step="0.5" value="15"/>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label>Sample Size n</label>
+          <div class="slider-row">
+            <input type="range" id="nMeanSlider" min="2" max="500" step="1" value="50"/>
+            <input type="number" id="nMeanBox" min="2" max="500" step="1" value="50"/>
+          </div>
+        </div>
+      </section>
+    </aside>
+
+    <!-- RIGHT: output -->
+    <div class="output-col">
+      <section class="card chart-card">
+        <h2 class="card-title">Normal Curve — p-value Visualization</h2>
+        <canvas id="normalCanvas" width="620" height="300"></canvas>
+      </section>
+
+      <section class="card results-card">
+        <h2 class="card-title">Results</h2>
+        <div class="results-grid" id="resultsGrid">
+          <div class="stat-box"><span class="stat-label">Test Statistic z</span><span class="stat-val" id="resZ">—</span></div>
+          <div class="stat-box"><span class="stat-label">p-value</span><span class="stat-val" id="resPval">—</span></div>
+          <div class="stat-box"><span class="stat-label">Critical Value</span><span class="stat-val" id="resCrit">—</span></div>
+          <div class="stat-box"><span class="stat-label">Significance α</span><span class="stat-val" id="resAlpha">—</span></div>
+        </div>
+        <div class="decision-box" id="decisionBox">
+          <span class="decision-label" id="decisionLabel">—</span>
+        </div>
+        <div class="conclusion-box" id="conclusionBox">
+          <p id="conclusionText">Adjust parameters to see the conclusion.</p>
+        </div>
+        <div class="error-box">
+          <h3>Possible Errors</h3>
+          <div class="error-grid">
+            <div class="error-item type1"><strong>Type I Error (α)</strong><p>Rejecting H₀ when it is actually true. Probability = α.</p></div>
+            <div class="error-item type2"><strong>Type II Error (β)</strong><p>Failing to reject H₀ when it is actually false. Depends on effect size and n.</p></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  </div>
+</main>
+
+<!-- ═══════════════════════ C9 PANEL ═══════════════════════ -->
+<main id="tab-c9" class="tab-panel">
+  <div class="panel-grid">
+
+    <aside class="controls-col">
+      <section class="card">
+        <h2 class="card-title">Upload CSV Data</h2>
+        <div class="upload-zone" id="uploadZone">
+          <input type="file" id="csvFile" accept=".csv"/>
+          <div class="upload-ui">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <p>Drop CSV file here or <label for="csvFile" class="link-label">browse</label></p>
+            <small>Use the provided example files to test</small>
+          </div>
+        </div>
+
+        <div class="example-downloads">
+          <p class="example-label">Example files:</p>
+          <button class="dl-btn" id="dlMean">⬇ Download Mean Example CSV</button>
+          <button class="dl-btn" id="dlProp">⬇ Download Proportion Example CSV</button>
+        </div>
+      </section>
+
+      <section class="card hidden" id="csvConfigCard">
+        <h2 class="card-title">Configure Test</h2>
+
+        <div class="field-group" id="colSelectGroup">
+          <label>Group Column</label>
+          <select id="groupColSelect"></select>
+        </div>
+
+        <div class="field-group" id="valueColGroup">
+          <label>Value Column</label>
+          <select id="valueColSelect"></select>
+        </div>
+
+        <div class="field-group" id="groupAGroup">
+          <label>Benchmark Group (H₀)</label>
+          <select id="groupASelect"></select>
+        </div>
+
+        <div class="field-group" id="groupBGroup">
+          <label>Test Group (H₁)</label>
+          <select id="groupBSelect"></select>
+        </div>
+
+        <div class="field-group">
+          <label>Test Direction</label>
+          <div class="toggle-group" id="csvTailToggle">
+            <button class="toggle-btn active" data-tail="left">Left</button>
+            <button class="toggle-btn" data-tail="two">Two</button>
+            <button class="toggle-btn" data-tail="right">Right</button>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label>Significance Level α</label>
+          <div class="slider-row">
+            <input type="range" id="csvAlphaSlider" min="0.01" max="0.10" step="0.01" value="0.05"/>
+            <input type="number" id="csvAlphaBox" min="0.01" max="0.10" step="0.01" value="0.05"/>
+          </div>
+        </div>
+
+        <button class="run-btn" id="runCsvTest">Run Hypothesis Test</button>
+      </section>
+    </aside>
+
+    <div class="output-col">
+      <section class="card" id="csvSummaryCard">
+        <h2 class="card-title">Group Summary Statistics</h2>
+        <div id="csvSummary"><p class="placeholder">Upload a CSV to see summary statistics.</p></div>
+      </section>
+
+      <section class="card chart-card hidden" id="csvChartCard">
+        <h2 class="card-title">Normal Curve — p-value Visualization</h2>
+        <canvas id="csvCanvas" width="620" height="300"></canvas>
+      </section>
+
+      <section class="card results-card hidden" id="csvResultsCard">
+        <h2 class="card-title">Test Results</h2>
+        <div class="results-grid" id="csvResultsGrid">
+          <div class="stat-box"><span class="stat-label">Test Statistic z</span><span class="stat-val" id="csvResZ">—</span></div>
+          <div class="stat-box"><span class="stat-label">p-value</span><span class="stat-val" id="csvResPval">—</span></div>
+          <div class="stat-box"><span class="stat-label">Critical Value</span><span class="stat-val" id="csvResCrit">—</span></div>
+          <div class="stat-box"><span class="stat-label">Significance α</span><span class="stat-val" id="csvResAlpha">—</span></div>
+        </div>
+        <div class="decision-box" id="csvDecisionBox">
+          <span class="decision-label" id="csvDecisionLabel">—</span>
+        </div>
+        <div class="conclusion-box" id="csvConclusionBox">
+          <p id="csvConclusionText">—</p>
+        </div>
+      </section>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <p>Global Economics · Grade 11 · Term 3 Learning Evidence 4 · Teacher: Nicolás López Cuéllar</p>
+  <p>Deploy this page via <a href="https://pages.github.com/" target="_blank">GitHub Pages</a> to get your public URL.</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

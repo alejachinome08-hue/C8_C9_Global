@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>C10 Report — Spotify Usage at San Bartolomé la Merced</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'EB Garamond', serif; font-size: 12pt; line-height: 2; background: #fff; color: #111; }
+  .page { max-width: 8.5in; margin: 0 auto; padding: 1in; }
+  .title-page { min-height: 9in; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; page-break-after: always; }
+  .title-page h1 { font-size: 14pt; font-weight: 600; line-height: 1.6; margin-bottom: 2em; max-width: 5.5in; }
+  .title-meta p { font-size: 12pt; line-height: 2; }
+  .running-head { font-family: 'IBM Plex Mono', monospace; font-size: 8pt; letter-spacing: 0.08em; text-transform: uppercase; color: #555; text-align: right; margin-bottom: 0.5em; border-bottom: 1px solid #ccc; padding-bottom: 0.3em; }
+  h2 { font-size: 12pt; font-weight: 600; text-align: center; margin-top: 2em; margin-bottom: 0; }
+  h3 { font-size: 12pt; font-weight: 600; font-style: italic; text-align: left; margin-top: 1.5em; margin-bottom: 0; }
+  p { margin-top: 0; margin-bottom: 0; text-indent: 0.5in; }
+  p.no-indent { text-indent: 0; }
+  .formula { font-family: 'IBM Plex Mono', monospace; font-size: 11pt; text-align: center; margin: 0.6em 0; text-indent: 0; }
+  table { width: 100%; border-collapse: collapse; margin: 1em 0; font-size: 11pt; }
+  caption { font-style: italic; text-align: left; font-size: 11pt; margin-bottom: 0.3em; }
+  th, td { padding: 5px 10px; text-align: center; }
+  thead tr { border-top: 2px solid #111; border-bottom: 1px solid #111; }
+  tbody tr:last-child { border-bottom: 2px solid #111; }
+  th { font-weight: 500; font-family: 'IBM Plex Mono', monospace; font-size: 10pt; }
+  td { font-family: 'IBM Plex Mono', monospace; font-size: 10pt; }
+  .table-note { font-size: 10pt; font-style: italic; text-indent: 0; margin-top: 0.3em; }
+  .ref-entry { padding-left: 0.5in; text-indent: -0.5in; margin-bottom: 0.8em; font-size: 11pt; line-height: 1.8; }
+  .ref-entry a { color: #111; word-break: break-all; }
+  @media print { body { background: white; } .page { padding: 1in; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- TITLE PAGE -->
+<div class="title-page">
+  <h1>Does the Proportion of Students and Teachers at San Bartolomé la Merced Who Use Spotify Exceed the Global Benchmark for Music Streaming Adoption?</h1>
+  <div class="title-meta">
+    <p>Alejandra Chinome &amp; Isabella Castillo</p>
+    <p>Global Economics, Grade 11B</p>
+    <p>Colegio San Bartolomé La Merced</p>
+    <p>Term 3 — Learning Evidence 4 (C10)</p>
+    <p>Teacher: Nicolás López Cuéllar</p>
+    <p>June 2026</p>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="running-head">Spotify Adoption at San Bartolomé · G11B · 2026</div>
+
+<h2>Abstract</h2>
+<p class="no-indent">
+  This report applies a one-sample z-test for proportions to determine whether the proportion of students and teachers at San Bartolomé la Merced School who use Spotify significantly exceeds the global benchmark of 60% for music streaming adoption among young people. A direct survey of 26 individuals at the school yielded 21 Spotify users, corresponding to a sample proportion of approximately 80.77%. Using a right-tailed test at α = 0.05, the analysis finds statistically significant evidence that Spotify adoption at the school exceeds the global benchmark (z = 2.162, p = 0.0153). The report contextualizes the result within Latin American streaming trends and discusses the implications of Type I and Type II errors.
+</p>
+
+<h2>Introduction</h2>
+<p>
+  Digital music streaming has become the dominant mode of music consumption for young people globally. Spotify, the world's leading audio streaming platform, surpassed 751 million monthly active users as of early 2026, with the 18–34 age group representing its largest and most engaged demographic (DemandSage, 2026). This dominance is especially pronounced in Latin America, where streaming now accounts for approximately 88% of all music revenue in the region, driven by youth-driven demand and increasing smartphone penetration (Market Data Forecast, 2025).
+</p>
+<p>
+  Colombia participates actively in this regional trend. The country has emerged as one of Latin America's key growth markets for streaming platforms, alongside Brazil and Mexico (Market Data Forecast, 2025). Given that Spotify's platform is most heavily used by listeners under 35 — precisely the age group that makes up the majority of a secondary school community — it is reasonable to hypothesize that adoption rates in a Bogotá school may surpass the widely cited global benchmark of 60% for young streaming users. According to Soundcamps (2026), Gen Z and younger millennials collectively represent over half of Spotify's global user base, and these users stream an average of 126 minutes per day, suggesting deep integration of the platform into daily routines.
+</p>
+<p>
+  This report tests whether the observed Spotify usage rate at San Bartolomé la Merced is statistically distinguishable from the 60% global benchmark, using primary survey data collected directly from students and teachers at the school in May 2026.
+</p>
+
+<h3>Research Question</h3>
+<p>
+  Does the proportion of students and teachers at San Bartolomé la Merced School who actively use Spotify exceed the global benchmark of 60% for music streaming adoption among young people and educators?
+</p>
+
+<h2>Methodology</h2>
+
+<h3>Hypotheses</h3>
+<p class="no-indent">The following hypotheses were formulated prior to data collection:</p>
+<p class="formula">H₀: p = 0.60 &nbsp;&nbsp; (Spotify usage at the school does not exceed the global benchmark)</p>
+<p class="formula">H₁: p &gt; 0.60 &nbsp;&nbsp; (Spotify usage at the school exceeds the global benchmark)</p>
+<p>
+  Here, <em>p</em> represents the true proportion of students and teachers at San Bartolomé la Merced who actively use Spotify as their primary music streaming platform.
+</p>
+
+<h3>Test Direction and Significance Level</h3>
+<p>
+  A <strong>right-tailed</strong> test was selected because the research question asks specifically whether adoption <em>exceeds</em> the benchmark — a directional claim — rather than simply whether it differs from it. The significance level was set at <strong>α = 0.05</strong>, the standard threshold in social science and education research (DemandSage, 2026).
+</p>
+
+<h3>Data Collection</h3>
+<p>
+  Data was collected through a direct survey conducted at San Bartolomé la Merced School during May 2026. A total of 26 individuals — including students and teachers — were asked: "Do you listen to Spotify?" Responses were recorded as Yes or No and anonymized for reporting purposes. Table 1 presents the complete raw survey results.
+</p>
+
+<table>
+  <caption>Table 1<br/><em>Raw Survey Responses — Spotify Usage (Anonymized)</em></caption>
+  <thead>
+    <tr><th>Person</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Spotify?</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>Y</td></tr>
+  </tbody>
+  <thead>
+    <tr><th>Person</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>19</th><th>20</th><th>21</th><th>22</th><th>23</th><th>24</th><th>25</th><th>26</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Spotify?</td><td>Y</td><td>Y</td><td>N</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>Y</td><td>Y</td><td>Y</td><td>N</td><td>Y</td></tr>
+  </tbody>
+</table>
+<p class="table-note no-indent"><em>Note.</em> Y = Yes (Spotify user); N = No (Non-user). Survey conducted at San Bartolomé la Merced School, May 2026. Total: 21 Yes, 5 No out of 26 respondents.</p>
+
+<table>
+  <caption>Table 2<br/><em>Summary Statistics</em></caption>
+  <thead><tr><th>Parameter</th><th>Value</th></tr></thead>
+  <tbody>
+    <tr><td>Sample size (n)</td><td>26</td></tr>
+    <tr><td>Spotify users (x)</td><td>21</td></tr>
+    <tr><td>Sample proportion (p̂)</td><td>0.8077</td></tr>
+    <tr><td>Benchmark proportion (p₀)</td><td>0.6000</td></tr>
+    <tr><td>Significance level (α)</td><td>0.05</td></tr>
+  </tbody>
+</table>
+
+<h3>Test Statistic</h3>
+<p>The one-sample z-test for proportions was applied using the following formula:</p>
+<p class="formula">z = (p̂ − p₀) / √(p₀(1 − p₀) / n)</p>
+<p class="formula">SE = √(0.60 × 0.40 / 26) = √(0.24 / 26) ≈ 0.0961</p>
+<p class="formula">z = (0.8077 − 0.6000) / 0.0961 ≈ 2.162</p>
+
+<h2>Results</h2>
+
+<table>
+  <caption>Table 3<br/><em>Hypothesis Test Results — Right-Tailed z-Test for Proportions</em></caption>
+  <thead><tr><th>Parameter</th><th>Value</th></tr></thead>
+  <tbody>
+    <tr><td>Test statistic z</td><td>2.162</td></tr>
+    <tr><td>Critical value z_c (α = 0.05, right-tailed)</td><td>1.645</td></tr>
+    <tr><td>p-value</td><td>0.0153</td></tr>
+    <tr><td>Significance level α</td><td>0.05</td></tr>
+    <tr><td>Statistical decision</td><td>Reject H₀</td></tr>
+  </tbody>
+</table>
+<p class="table-note no-indent"><em>Note.</em> p-value computed using the standard normal distribution (right-tailed). Results verified with the interactive hypothesis testing tool developed for C8–C9.</p>
+
+<h3>Statistical Decision</h3>
+<p>
+  Since the test statistic (z = 2.162) exceeds the critical value (z_c = 1.645), and the p-value (0.0153) is less than α = 0.05, we <strong>reject the null hypothesis</strong>. There is sufficient statistical evidence at the 5% significance level to conclude that the proportion of Spotify users at San Bartolomé la Merced significantly exceeds the global benchmark of 60%.
+</p>
+
+<h2>Discussion</h2>
+<p>
+  The result is consistent with broader regional and global trends in digital audio consumption. DemandSage (2026) notes that Spotify's fastest-growing demographic continues to be Gen Z listeners — the same population that forms the majority of a secondary school community. The platform's expansion in Latin America has been particularly strong, with streaming representing 88% of all regional music revenue in 2025 (Market Data Forecast, 2025). In this environment, an adoption rate of over 80% at a Bogotá school is not surprising; it reflects the deeply embedded role of streaming in the daily lives of young Colombians.
+</p>
+<p>
+  Soundcamps (2026) further reports that Gen Z users stream an average of 126 minutes of audio daily on Spotify, suggesting that for this demographic, the platform is not merely a supplementary tool but a central part of their media routine. The school sample's high adoption rate may therefore reflect a generational norm rather than an anomaly, supporting the argument that the 60% global benchmark understates usage among school-age populations in streaming-intensive markets like Colombia.
+</p>
+<p>
+  One important limitation is the small sample size (n = 26). While the statistical decision to reject H₀ is clear — the p-value of 0.0153 provides a comfortable margin below α = 0.05 — the sample may not be fully representative of the entire school population. A larger, more systematically selected sample would improve the precision and generalizability of the estimate.
+</p>
+
+<h3>Type I Error</h3>
+<p>
+  A Type I error in this context would mean concluding that Spotify adoption at the school exceeds 60% when it actually does not. At α = 0.05, there is a 5% probability of making this error. Practically, this would lead to an inaccurate characterization of streaming habits within the school community — a minor consequence in educational research, but one that underscores why the significance level must be chosen deliberately.
+</p>
+
+<h3>Type II Error</h3>
+<p>
+  A Type II error would mean failing to reject H₀ when Spotify adoption truly does exceed 60%. With n = 26, the statistical power of the test is moderate. Had the true proportion been closer to 65% rather than 80%, the small sample size might have been insufficient to detect the difference, resulting in a missed finding. Increasing the sample to n ≥ 100 would substantially reduce this risk and improve the reliability of the inference.
+</p>
+
+<h2>Conclusion</h2>
+<p>
+  At α = 0.05, the hypothesis test provides strong statistical evidence to reject the null hypothesis and conclude that the proportion of students and teachers at San Bartolomé la Merced School who use Spotify (p̂ ≈ 80.77%, n = 26) significantly exceeds the global music streaming adoption benchmark of 60% (z = 2.162, p = 0.0153). This outcome aligns with documented trends in Latin American youth streaming behavior, where Spotify has become the dominant audio platform among young people under 35 (DemandSage, 2026; Market Data Forecast, 2025; Soundcamps, 2026). Future studies with larger, randomly selected samples would allow for more precise population-level estimates and stronger generalizability of these conclusions.
+</p>
+
+<!-- REFERENCES -->
+<div style="page-break-before: always;">
+<h2>References</h2>
+
+<div class="ref-entry">
+  DemandSage. (2026, March 11). <em>Spotify users statistics 2026 (country wise data).</em> DemandSage. <a href="https://www.demandsage.com/spotify-stats/">https://www.demandsage.com/spotify-stats/</a>
+</div>
+
+<div class="ref-entry">
+  Market Data Forecast. (2025). <em>Latin America music market size, share &amp; growth, 2034.</em> Market Data Forecast. <a href="https://www.marketdataforecast.com/market-reports/latin-america-music-market">https://www.marketdataforecast.com/market-reports/latin-america-music-market</a>
+</div>
+
+<div class="ref-entry">
+  Soundcamps. (2026, January 4). <em>Spotify statistics 2026: Users, revenue &amp; demographics.</em> Soundcamps. <a href="https://soundcamps.com/blog/spotify-statistics/">https://soundcamps.com/blog/spotify-statistics/</a>
+</div>
+
+</div><!-- end references -->
+
+</div><!-- end .page -->
+</body>
+</html>
